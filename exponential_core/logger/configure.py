@@ -4,7 +4,7 @@ from logging.handlers import RotatingFileHandler
 from colorlog import ColoredFormatter
 
 
-def configure_logging(log_level="INFO", log_file="app/logs/errors.log"):
+def configure_logging(log_level="INFO", log_file="logs/errors.log"):
     log_dir = Path(log_file).parent
     log_dir.mkdir(parents=True, exist_ok=True)
 

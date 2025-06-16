@@ -1,4 +1,0 @@
-2025-06-16 13:42:29,234 | INFO | app | D:\Exponentialit\exponential_core\test_logger.py:6 | Esto es un mensaje INFO
-2025-06-16 13:42:29,234 | WARNING | app | D:\Exponentialit\exponential_core\test_logger.py:7 | Esto es un mensaje WARNING
-2025-06-16 13:42:29,234 | ERROR | app | D:\Exponentialit\exponential_core\test_logger.py:8 | Esto es un mensaje ERROR
-2025-06-16 13:42:29,234 | CRITICAL | app | D:\Exponentialit\exponential_core\test_logger.py:9 | Esto es un mensaje CRITICAL 🚨

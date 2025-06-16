@@ -4,7 +4,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import ValidationError
 import httpx
 
-from .handler import (
+from exponential_core.exceptions.handler import (
     http_exception_handler,
     validation_exception_handler,
     pydantic_validation_handler,
@@ -12,7 +12,7 @@ from .handler import (
     custom_app_exception_handler,
     general_exception_handler,
 )
-from .types import CustomAppException
+from exponential_core.exceptions.base import CustomAppException
 
 
 def setup_exception_handlers(app: FastAPI):

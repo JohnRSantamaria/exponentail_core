@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="exponential-core",
-    version="0.1.2",
+    version="0.1.3",
     description="Librería interna compartida por los microservicios de Exponential IT",
     author="Equipo Exponential",
     author_email="jhon.rincon@exponentialit.net",

@@ -1,13 +1,20 @@
-import httpx
-from pydantic import ValidationError
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
+from starlette.responses import Response
 from fastapi import HTTPException
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from pydantic import ValidationError
+import httpx
 
 from exponential_core.exceptions.base import CustomAppException
-from exponential_core.utils.format_error import format_error_response
+from exponential_core.exceptions.handler import (
+    http_exception_handler,
+    validation_exception_handler,
+    pydantic_validation_handler,
+    httpx_error_handler,
+    custom_app_exception_handler,
+    general_exception_handler,
+)
 from exponential_core.logger.configure import configure_logging
 
 logger = configure_logging()
@@ -18,34 +25,17 @@ class GlobalExceptionMiddleware(BaseHTTPMiddleware):
         try:
             return await call_next(request)
         except Exception as exc:
-            logger.error(f"Unhandled exception: {str(exc)}")
-            status_code = 500
-            if hasattr(exc, "status_code"):
-                status_code = exc.status_code
-            elif isinstance(exc, HTTPException):
-                status_code = exc.status_code
+            # Delegar a los handlers específicos si coincide el tipo
+            if isinstance(exc, CustomAppException):
+                return await custom_app_exception_handler(request, exc)
             elif isinstance(exc, RequestValidationError):
-                status_code = 422
+                return await validation_exception_handler(request, exc)
             elif isinstance(exc, ValidationError):
-                status_code = 422
+                return await pydantic_validation_handler(request, exc)
             elif isinstance(exc, httpx.RequestError):
-                status_code = 502
-            elif isinstance(exc, httpx.HTTPStatusError) and exc.response:
-                status_code = exc.response.status_code
-            elif isinstance(exc, CustomAppException):
-                status_code = exc.status_code
-
-            logger.error(
-                f"Excepción atrapada por middleware global | {request.method} {request.url} | "
-                f"Tipo: {type(exc).__name__} | Código: {status_code} | Detalle: {str(exc)}",
-                exc_info=exc,
-            )
-
-            return JSONResponse(
-                status_code=status_code,
-                content=format_error_response(
-                    f"Internal server error : {str(exc)}",
-                    "UnhandledException",
-                    status_code,
-                ),
-            )
+                return await httpx_error_handler(request, exc)
+            elif isinstance(exc, HTTPException):
+                return await http_exception_handler(request, exc)
+            else:
+                # Fallback para cualquier error no controlado
+                return await general_exception_handler(request, exc)

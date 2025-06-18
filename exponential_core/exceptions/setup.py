@@ -21,4 +21,4 @@ def setup_exception_handlers(app: FastAPI):
     app.add_exception_handler(ValidationError, pydantic_validation_handler)
     app.add_exception_handler(httpx.RequestError, httpx_error_handler)
     app.add_exception_handler(CustomAppException, custom_app_exception_handler)
-    app.add_exception_handler(Exception, general_exception_handler)
+    app.add_exception_handler(Exception, general_exception_handler)    

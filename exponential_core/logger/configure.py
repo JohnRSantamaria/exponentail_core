@@ -4,10 +4,11 @@ from logging.handlers import RotatingFileHandler
 from colorlog import ColoredFormatter
 
 
-def configure_logging(log_level="INFO", log_file="logs/errors.log"):
+def configure_logging(log_level="DEBUG", log_file="logs/errors.log"):
     log_dir = Path(log_file).parent
     log_dir.mkdir(parents=True, exist_ok=True)
 
+    # Crear handlers
     file_handler = RotatingFileHandler(
         filename=log_file,
         maxBytes=5 * 1024 * 1024,
@@ -33,5 +34,19 @@ def configure_logging(log_level="INFO", log_file="logs/errors.log"):
     )
     console_handler.setFormatter(color_formatter)
 
-    logging.basicConfig(level=log_level, handlers=[file_handler, console_handler])
-    return logging.getLogger("app")
+    # Obtener logger explícito y limpiarlo
+    logger = logging.getLogger("app")
+    logger.setLevel(log_level)
+
+    # Quitar handlers anteriores
+    logger.handlers = []
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+
+
+    logging.getLogger().handlers = []
+    logging.getLogger().setLevel(log_level)
+    logging.getLogger().addHandler(file_handler)
+    logging.getLogger().addHandler(console_handler)
+
+    return logger

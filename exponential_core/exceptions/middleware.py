@@ -1,10 +1,9 @@
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.requests import Request
-from starlette.responses import Response
-from fastapi import HTTPException
-from fastapi.exceptions import RequestValidationError
-from pydantic import ValidationError
 import httpx
+from pydantic import ValidationError
+from fastapi import HTTPException
+from starlette.middleware.base import BaseHTTPMiddleware
+from fastapi.exceptions import RequestValidationError
+from starlette.requests import Request
 
 from exponential_core.exceptions.base import CustomAppException
 from exponential_core.exceptions.handler import (
@@ -15,9 +14,9 @@ from exponential_core.exceptions.handler import (
     custom_app_exception_handler,
     general_exception_handler,
 )
-from exponential_core.logger.configure import configure_logging
 
-logger = configure_logging()
+
+
 
 
 class GlobalExceptionMiddleware(BaseHTTPMiddleware):

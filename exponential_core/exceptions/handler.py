@@ -1,14 +1,13 @@
+# exponential_core\exceptions\handler.py
 from datetime import datetime, timezone
 import httpx
 from fastapi import Request, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from pydantic import ValidationError
-from exponential_core.logger.configure import configure_logging
 from exponential_core.utils.format_error import format_error_response
 from exponential_core.exceptions.base import CustomAppException
-
-logger = configure_logging()
+from exponential_core.logger import logger
 
 
 async def http_exception_handler(request: Request, exc: HTTPException):

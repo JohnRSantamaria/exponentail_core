@@ -5,9 +5,10 @@ from colorlog import ColoredFormatter
 
 _logger_initialized = False  # Protección global
 
-def configure_logging(log_level="INFO", log_file="logs/errors.log"):
+def configure_logging(log_level="INFO", log_file="logs/errors.log",  force=False):
     global _logger_initialized
-    if _logger_initialized:
+
+    if _logger_initialized and not force:
         return logging.getLogger("app")
 
     # Convertir a Path y asegurar ruta absoluta

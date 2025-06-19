@@ -7,8 +7,9 @@ from fastapi.exceptions import RequestValidationError
 from pydantic import ValidationError
 from exponential_core.utils.format_error import format_error_response
 from exponential_core.exceptions.base import CustomAppException
-from exponential_core.logger import logger
+from exponential_core.logger import get_logger
 
+logger = get_logger()
 
 async def http_exception_handler(request: Request, exc: HTTPException):
     """

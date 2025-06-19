@@ -1,6 +1,6 @@
 [project]
 name = "exponential-core"
-version = "0.1.5"
+version = "0.1.6"
 description = "Librería compartida para excepciones, logging y utilidades comunes de Exponential IT"
 authors = [{ name = "Equipo Exponential IT", email = "dev@exponential.com" }]
 dependencies = [

@@ -1,3 +1,4 @@
+# exponential_core\exceptions\middleware.py
 import httpx
 from pydantic import ValidationError
 from fastapi import HTTPException
@@ -14,10 +15,6 @@ from exponential_core.exceptions.handler import (
     custom_app_exception_handler,
     general_exception_handler,
 )
-
-
-
-
 
 class GlobalExceptionMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):

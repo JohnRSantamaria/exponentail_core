@@ -1,3 +1,4 @@
+# exponential_core\exceptions\__init__.py
 from exponential_core.exceptions.setup import setup_exception_handlers
 from exponential_core.exceptions.middleware import GlobalExceptionMiddleware
 from exponential_core.exceptions.base import CustomAppException

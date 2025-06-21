@@ -1,10 +1,10 @@
+# exponential_core\exceptions\types.py
 from typing import List
 from exponential_core.exceptions.base import CustomAppException
 
 class InvoiceParsingError(CustomAppException):
     def __init__(self, detail: str):
         super().__init__(f"Error al parsear factura: {detail}", status_code=422)
-
 
 class OdooException(CustomAppException):
     def __init__(self, detail: str, data: dict = None):
@@ -23,7 +23,6 @@ class TaxIdNotFoundError(CustomAppException):
                 "candidates": candidates,
             },
         )
-
 
 class ValidTaxIdNotFoundError(CustomAppException):
     def __init__(self, raw_ids: List[str]):
